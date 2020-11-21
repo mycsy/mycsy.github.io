@@ -1,1 +1,0 @@
-# mycsy.github.io

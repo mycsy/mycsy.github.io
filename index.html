@@ -26,32 +26,29 @@
 
   <meta name="description" content="Nothing can beat me">
 <meta property="og:type" content="website">
-<meta property="og:title" content="All tags">
-<meta property="og:url" content="http://example.com/tags/index.html">
+<meta property="og:title" content="Komorebi">
+<meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Komorebi">
 <meta property="og:description" content="Nothing can beat me">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-01-20T10:57:48.000Z">
-<meta property="article:modified_time" content="2020-11-11T13:25:50.317Z">
 <meta property="article:author" content="Komorebi">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/tags/">
+<link rel="canonical" href="http://example.com/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>All tags | Komorebi
-</title>
+  <title>Komorebi</title>
   
 
 
@@ -249,53 +246,102 @@
 </noscript>
 
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner index posts-expand">
       
+
+      
+    
+
+
+<div class="post-block">
   
   
 
-      
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/21/AOP+%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E6%8B%A6%E6%88%AA/">
 
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Komorebi">
+      <meta itemprop="description" content="Nothing can beat me">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Komorebi">
+    </span>
       <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/21/AOP+%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E6%8B%A6%E6%88%AA/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
 
-<h1 class="post-title" itemprop="name headline">All tags
-</h1>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
 
-<div class="post-meta-container">
+      <time title="创建时间：2020-11-21 16:58:24 / 修改时间：16:57:53" itemprop="dateCreated datePublished" datetime="2020-11-21T16:58:24+08:00">2020-11-21</time>
+    </span>
+
   
-
 </div>
 
-</header>
+        </div>
+      </header>
 
-      
-      
-      
-      <div class="post-body">
-          <div class="tag-cloud">
-  <div class="tag-cloud-title">
-    暂无标签
-  </div>
-  <div class="tag-cloud-tags">
     
-  </div>
-</div>
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>本文章介绍了一个通过注解形式实现AOP拦截完成文章阅读量增加的功能。<br>首先在项目的pom文件中引入AOP所需的依赖代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">      <span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-aop --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.aspectj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aspectjrt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.aspectj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aspectjweaver<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/cglib/cglib --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-        
-      </div>
-      
-      
+<p>创建一个注解用于方法的拦截：<br>@Target({ElementType.METHOD})<br>@Retention(RetentionPolicy.RUNTIME)<br>@Documented<br>public @interface ArticleReadCount {<br>}<br>开始写AOP拦截器代码，首先写一个拦截点，是通注解ArticleReadCount进行拦截的，然后我使用的是方法前拦截（Around、after等均可），获取到文章id后将阅读数增加。<br>@Aspect<br>@Component<br>public class ArticleAspect {<br>    @Autowired<br>    private ArticleService articleService;</p>
+<pre><code>/**
+ * AOP拦截切入点，通过注解ArticleReadCount
+ */
+@Pointcut(&quot;@annotation(ArticleReadCount)&quot;)
+private void articleRead()&#123;&#125;;
+
+/**
+ * 文章阅读数计算
+ * @param joinPoint
+ */
+@Before(&quot;articleRead()&quot;)
+public void ArticleReadCount(JoinPoint joinPoint) &#123;
+    Object[] args = joinPoint.getArgs();
+    //获取文章id
+    Long articleId = (Long)args[0];
+    //文章阅读数+1
+    articleService.addArticleReadCount(articleId);
+
+&#125;</code></pre>
+<p>}<br>最后将注解加入到访问文章的方法上即可实现查看文章阅读量自动增加。</p>
+
       
     </div>
-    
 
     
     
     
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+  
+
 
 
       

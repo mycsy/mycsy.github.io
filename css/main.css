@@ -182,7 +182,7 @@ body {
   background: var(--body-bg-color);
   color: var(--text-color);
   font-family: Lato, "Microsoft YaHei", Verdana, sans-serif;
-  font-size: 1em;
+  font-size: 16px;
   line-height: 2;
   min-height: 100%;
   position: relative;
@@ -2713,7 +2713,7 @@ hr {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #eeff16;
+  background: #28c125;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);

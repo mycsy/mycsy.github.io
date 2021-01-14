@@ -357,7 +357,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-27 19:10:40" itemprop="dateModified" datetime="2020-11-27T19:10:40+08:00">2020-11-27</time>
+        <time title="修改时间：2021-01-14 14:55:07" itemprop="dateModified" datetime="2021-01-14T14:55:07+08:00">2021-01-14</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -448,7 +448,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-14 10:51:40" itemprop="dateModified" datetime="2021-01-14T10:51:40+08:00">2021-01-14</time>
+        <time title="修改时间：2021-01-14 14:27:08" itemprop="dateModified" datetime="2021-01-14T14:27:08+08:00">2021-01-14</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -456,7 +456,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java-MySQL-Mybatis/" itemprop="url" rel="index"><span itemprop="name">Java,MySQL,Mybatis</span></a>
+          <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
         </span>
     </span>
 
@@ -470,18 +470,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <ul><li>&nbsp; <b>首先应该创建一个自增号码的表，建表数据如下：</b></li></ul><pre>&nbsp; &nbsp; &nbsp;&nbsp;CREATE TABLE `sequence` (
-      `name` varchar(20) NOT NULL,
-      `value` int(10) unsigned NOT NULL,
-      PRIMARY KEY (`name`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT=''自增编号省成本表'';</pre><p>其中两个字段的含义：</p><p>&lt;<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">name</span>&gt;：代表的自增的业务名称，需要生成编号的可能是 order_number（订单编号）或者是goods_number（产品编号）；</p><p>&lt;<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">value</span>&gt;：记录当前编号已经自增的值，从0开始，每次生成 +1。</p><p>表格详情如下：</p><table class="table table-bordered"><tbody><tr><td style="text-align: center; "><p style="text-align: left;"><b>name</b></p></td><td style=""><b>value</b></td></tr><tr><td style="text-align: left;">order_number<br></td><td style="text-align: left;">0</td></tr><tr><td style="text-align: left;">goods_number<br></td><td style="text-align: left;">0</td></tr></tbody></table><ul><li><b>开始创建MySQL函数</b></li></ul><pre>BEGIN
-   DECLARE getval VARCHAR(24) DEFAULT '''';
-     UPDATE sequence SET value= last_insert_id(value+1)  WHERE name=seq_name;
-    SET  getval =  (SELECT CONCAT(IFNULL(DATE_FORMAT(NOW(), time_type),''''), LPAD((last_insert_id()+""), seq_length, ''0'')));
-    RETURN  getval;
-END</pre><p>这是一个获取名称为getval()的MySQL函数，执行时首先修改<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">sequence</span>表中为‘<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">seq_name</span>’的value值，然后执行查询获取最终的编号。其中包括三个参数需要传入：</p><p>&lt;<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">seq_name</span>&gt;：这个参数对应的就是<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">sequence</span>表中的name字段，表示要获取哪个业务对应的编号，可以传入例如 ‘order_number’；</p><p>&lt;<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">time_type</span>&gt;：这个参数表示的是对应生成的时间格式，可以传入‘yyyy-MM-dd’;</p><p>&lt;<span style="background-color: rgb(245, 245, 245); color: rgb(51, 51, 51); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px;">seq_length</span>&gt;：这个参数指的是在时间后还有几位，比如可以传入4，那么时间后就会生成‘0001’四位，按介绍参数传入参数执行函数，那么最后生成的编号为【202001140001】</p><ul><li><b>项目中应该如何使用该函数（以Mybatis为例）</b></li></ul><p>Mybatis对应Mapper的Java代码写下方法：</p><pre>String getWorksheetId(@Param("name") String name, @Param("sqlLength") Integer sqlLength, @Param("typeTime") String typeTime);</pre><p>Mybatis对应的XMl文件中如下写法：</p><pre>&lt;select id="getWorksheetId" resultType="java.lang.String"&gt;
-   SELECT getWorksheetId(#{name}, #{sqlLength}, #{typeTime}) FROM dual
-&lt;/select&gt;</pre><p>&lt;dual&gt;：指的是MySQL的虚拟表，没有什么特殊意义，具体解释可以百度搜下，这里就不详细介绍了。</p><p>最后在Java代码中调用该方法就可以实现了：</p><pre>String orderNumber = SequenceMapper.getWorksheetId("order_number", 4, "yyyy-MM");</pre><p>最终返回的结果为（时间为文章创建日期，不必纠结）：“20200140001”。</p><p><br></p>
+          <p>通过MySQL函数生成自动补零的编号规则，有效解决了批量处理时的编号重复问题，适用于各种生成时间+编号规则...</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/14/MySQL%E5%87%BD%E6%95%B0%E7%94%9F%E6%88%90%E3%80%90%E6%97%A5%E6%9C%9F-%E8%A1%A5%E9%9B%B6-%E8%87%AA%E5%A2%9E%E6%95%B0%E3%80%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BC%96%E5%8F%B7/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
